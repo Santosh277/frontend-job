@@ -55,6 +55,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             if (res.data.success) {
                 dispatch(setUser(res.data.user));
                 toast.success(res.data.message);
+                setOpen(false);
             }
         } catch (error) {
             console.log(error);
@@ -62,16 +63,16 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         } finally{
             setLoading(false);
         }
-        setOpen(false);
-        console.log(input);
+        // setOpen(false);
+        // console.log(input);
     }
 
 
 
     return (
         <div>
-            <Dialog open={open}>
-                <DialogContent className="sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
+            <Dialog open={open} onOpenChange={setOpen}>
+                <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
                         <DialogTitle>Update Profile</DialogTitle>
                     </DialogHeader>
@@ -80,8 +81,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                             <div className='grid grid-cols-4 items-center gap-4'>
                                 <Label htmlFor="FullName" className="text-right">FullName</Label>
                                 <Input
-                                    id="name"
-                                    name="name"
+                                    id="fullName"
+                                    name="fullName"
                                     type="text"
                                     value={input.fullName}
                                     onChange={changeEventHandler}
@@ -100,10 +101,11 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="number" className="text-right">Number</Label>
+                                <Label htmlFor="phoneNumber" className="text-right">Number</Label>
                                 <Input
-                                    id="number"
-                                    name="number"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
+                                    type="text"
                                     value={input.phoneNumber}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
@@ -114,6 +116,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Input
                                     id="bio"
                                     name="bio"
+                                    type="text"
                                     value={input.bio}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
@@ -124,6 +127,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Input
                                     id="skills"
                                     name="skills"
+                                    type="text"
                                     value={input.skills}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
@@ -135,7 +139,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                     id="file"
                                     name="file"
                                     type="file"
-                                    accept="application/pdf"
+                                    accept=".pdf, .doc, .docx"
                                     onChange={fileChangeHandler}
                                     className="col-span-3"
                                 />
